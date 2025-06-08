@@ -550,7 +550,7 @@
   <button
     type="submit"
     class="btn btn-primary me-2"
-    [disabled]="formulario.invalid"
+    [disabled]="formulario.invalid || isSubmitting"
   >
     Enviar Solicitud
   </button>
