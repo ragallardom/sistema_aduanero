@@ -32,9 +32,8 @@ export class SolicitudAduanaService {
       SolicitudViajeMenor,
       'id' | 'estado' | 'fechaCreacion' | 'documentos'
     >,
-    tipoAdjunto = '',
-    numeroDocumento = '',
-    archivo?: File
+    tiposDocumento: string[] = [],
+    archivos: File[] = []
   ): Observable<SolicitudViajeMenor> {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
@@ -42,32 +41,9 @@ export class SolicitudAduanaService {
         formData.append(key, value as string);
       }
     });
-    if (tipoAdjunto) {
-      formData.append('tipoAdjunto', tipoAdjunto);
-    }
-    if (archivo) {
-      formData.append('archivo', archivo);
-    }
+    tiposDocumento.forEach((t) => formData.append('tiposDocumento', t));
+    archivos.forEach((a) => formData.append('archivos', a));
 
-    let params: HttpParams | undefined;
-    if (data.nombrePadreMadre) {
-      params = new HttpParams().set(
-        'nombreSolicitante',
-        data.nombrePadreMadre
-      );
-    }
-    if (tipoAdjunto) {
-      params = (params ?? new HttpParams()).set('tipoAdjunto', tipoAdjunto);
-    }
-    if (numeroDocumento) {
-      params = (params ?? new HttpParams()).set(
-        'numeroDocumento',
-        numeroDocumento
-      );
-    }
-
-    return this.http.post<SolicitudViajeMenor>(this.baseUrl, formData, {
-      params,
-    });
+    return this.http.post<SolicitudViajeMenor>(this.baseUrl, formData);
   }
 }

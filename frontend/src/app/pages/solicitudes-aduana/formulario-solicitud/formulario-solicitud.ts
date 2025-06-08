@@ -208,14 +208,17 @@ export class FormularioSolicitudComponent implements OnInit {
       motivoViaje: f.motivoViaje,
     };
 
-    const adjunto = this.adjuntos['idMenor'] ?? undefined;
+    const archivos: File[] = [];
+    const tipos: string[] = [];
+    for (const [tipo, file] of Object.entries(this.adjuntos)) {
+      if (file) {
+        archivos.push(file);
+        tipos.push(tipo);
+      }
+    }
+
     this.service
-      .crearConAdjunto(
-        payload,
-        'idMenor',
-        f.numeroDocumentoMenor,
-        adjunto
-      )
+      .crearConAdjunto(payload, tipos, archivos)
       .subscribe({
         next: () => {
           this.successMsg = 'Solicitud enviada correctamente.';
