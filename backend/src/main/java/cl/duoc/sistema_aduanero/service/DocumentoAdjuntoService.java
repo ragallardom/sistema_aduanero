@@ -6,8 +6,10 @@ import cl.duoc.sistema_aduanero.repository.DocumentoAdjuntoRepository;
 import cl.duoc.sistema_aduanero.repository.SolicitudAduanaRepository;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +36,7 @@ public class DocumentoAdjuntoService {
 
     String carpetaSolicitud =
         Paths.get(basePath, "solicitud_" + solicitud.getId()).toString();
-    File dir = new File(carpetaSolicitud);
-    if (!dir.exists()) {
-      dir.mkdirs();
-    }
+    Files.createDirectories(Paths.get(carpetaSolicitud));
 
     String originalFilename = archivo.getOriginalFilename();
     String extension = "";
@@ -49,7 +48,7 @@ public class DocumentoAdjuntoService {
         tipoDocumento.toLowerCase().replaceAll("\\s+", "_") + extension;
 
     Path rutaFinal = Paths.get(carpetaSolicitud, nombreFormateado);
-    archivo.transferTo(rutaFinal.toFile());
+    Files.copy(archivo.getInputStream(), rutaFinal, StandardCopyOption.REPLACE_EXISTING);
 
     AdjuntoViajeMenores doc = new AdjuntoViajeMenores();
     doc.setSolicitud(solicitud);
@@ -75,10 +74,7 @@ public class DocumentoAdjuntoService {
 
       String carpetaSolicitud =
           Paths.get(basePath, "solicitud_" + solicitud.getId()).toString();
-      File dir = new File(carpetaSolicitud);
-      if (!dir.exists()) {
-        dir.mkdirs();
-      }
+      Files.createDirectories(Paths.get(carpetaSolicitud));
 
       String originalFilename = archivo.getOriginalFilename();
       String extension = "";
@@ -91,7 +87,7 @@ public class DocumentoAdjuntoService {
           solicitud.getId() + "_" + tipo.toLowerCase().replaceAll("\\s+", "_") + "_" + timestamp + extension;
 
       Path rutaFinal = Paths.get(carpetaSolicitud, nombreFormateado);
-      archivo.transferTo(rutaFinal.toFile());
+      Files.copy(archivo.getInputStream(), rutaFinal, StandardCopyOption.REPLACE_EXISTING);
 
       AdjuntoViajeMenores doc = new AdjuntoViajeMenores();
       doc.setSolicitud(solicitud);
