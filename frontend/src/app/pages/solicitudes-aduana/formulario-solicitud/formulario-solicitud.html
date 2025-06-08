@@ -6,8 +6,18 @@
   <div *ngIf="errorMsg" class="alert alert-danger">
     {{ errorMsg }}
   </div>
-  <div *ngIf="successMsg" class="alert alert-success">
+  <div
+    *ngIf="successMsg"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
     {{ successMsg }}
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="successMsg = ''"
+    ></button>
   </div>
 
   <form

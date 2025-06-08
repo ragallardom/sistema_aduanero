@@ -221,7 +221,7 @@ export class FormularioSolicitudComponent implements OnInit {
       .crearConAdjunto(payload, tipos, archivos)
       .subscribe({
         next: () => {
-          this.successMsg = 'Solicitud enviada correctamente.';
+          this.successMsg = 'Solicitud creada con éxito.';
           this.errorMsg = '';
           setTimeout(() => this.router.navigate(['/solicitud-aduana']), 1500);
         },
