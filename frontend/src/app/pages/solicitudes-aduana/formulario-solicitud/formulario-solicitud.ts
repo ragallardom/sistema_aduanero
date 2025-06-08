@@ -1,6 +1,6 @@
 // src/app/pages/solicitudes-aduana/formulario-solicitud/formulario-solicitud.ts
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -103,7 +103,8 @@ export class FormularioSolicitudComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: SolicitudAduanaService,
-    public router: Router
+    public router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -229,11 +230,13 @@ export class FormularioSolicitudComponent implements OnInit {
           this.successMsg = 'Solicitud creada con éxito.';
           this.errorMsg = '';
           this.isSubmitting = false;
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error al crear solicitud:', err);
           this.errorMsg = 'Ocurrió un error al crear la solicitud.';
           this.isSubmitting = false;
+          this.cdr.detectChanges();
         },
       });
 
