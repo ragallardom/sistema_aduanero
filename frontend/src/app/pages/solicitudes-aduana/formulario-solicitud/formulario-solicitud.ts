@@ -90,6 +90,7 @@ export class FormularioSolicitudComponent implements OnInit {
   errorMsg = '';
   successMsg = '';
   submitAttempted = false;
+  isSubmitting = false;
 
   adjuntos: Record<string, File | null> = {
     idMenor: null,
@@ -176,6 +177,9 @@ export class FormularioSolicitudComponent implements OnInit {
 
   // Manejo del submit
   guardar(): void {
+    if (this.isSubmitting) {
+      return;
+    }
     this.submitAttempted = true;
     // Validar campos
     if (this.formulario.invalid) {
@@ -183,6 +187,7 @@ export class FormularioSolicitudComponent implements OnInit {
       this.scrollToFirstError();
       return;
     }
+    this.isSubmitting = true;
     // Construir payload con los campos básicos
     const f = this.formulario.value;
     const payload: Omit<
@@ -223,10 +228,12 @@ export class FormularioSolicitudComponent implements OnInit {
         next: () => {
           this.successMsg = 'Solicitud creada con éxito.';
           this.errorMsg = '';
+          this.isSubmitting = false;
         },
         error: (err) => {
           console.error('Error al crear solicitud:', err);
           this.errorMsg = 'Ocurrió un error al crear la solicitud.';
+          this.isSubmitting = false;
         },
       });
 
