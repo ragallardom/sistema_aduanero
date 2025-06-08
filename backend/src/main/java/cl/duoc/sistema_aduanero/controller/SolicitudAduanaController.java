@@ -173,6 +173,17 @@ public class SolicitudAduanaController {
     return ResponseEntity.ok(mapearSolicitud(opt.get()));
   }
 
+  @PutMapping("/{id}/estado")
+  public ResponseEntity<Void> actualizarEstado(
+      @PathVariable Long id, @RequestParam String estado) {
+    try {
+      solicitudService.actualizarEstado(id, estado);
+      return ResponseEntity.ok().build();
+    } catch (RuntimeException ex) {
+      return ResponseEntity.notFound().build();
+    }
+  }
+
   private SolicitudViajeMenoresResponse mapearSolicitud(SolicitudViajeMenores s) {
     SolicitudViajeMenoresResponse r = new SolicitudViajeMenoresResponse();
     r.setId(s.getId());
