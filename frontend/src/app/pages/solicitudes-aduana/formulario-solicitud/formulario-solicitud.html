@@ -20,6 +20,20 @@
     ></button>
   </div>
 
+  <!-- Mensaje de éxito en modal -->
+  <div
+    class="modal-overlay"
+    *ngIf="successMsg"
+    tabindex="-1"
+  >
+    <div class="modal-box">
+      <p>{{ successMsg }}</p>
+      <button class="btn btn-primary" (click)="cerrarMensajeExito()">
+        Cerrar
+      </button>
+    </div>
+  </div>
+
   <form
     [formGroup]="formulario"
     (ngSubmit)="guardar()"
