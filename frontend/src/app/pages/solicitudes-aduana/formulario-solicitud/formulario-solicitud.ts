@@ -223,7 +223,6 @@ export class FormularioSolicitudComponent implements OnInit {
         next: () => {
           this.successMsg = 'Solicitud creada con éxito.';
           this.errorMsg = '';
-          setTimeout(() => this.router.navigate(['/solicitud-aduana']), 1500);
         },
         error: (err) => {
           console.error('Error al crear solicitud:', err);
@@ -305,6 +304,11 @@ export class FormularioSolicitudComponent implements OnInit {
       const first = document.querySelector('.ng-invalid') as HTMLElement;
       first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 0);
+  }
+
+  cerrarMensajeExito(): void {
+    this.successMsg = '';
+    this.router.navigate(['/solicitud-aduana']);
   }
 
   cancelar(): void {
