@@ -1,8 +1,6 @@
 package cl.duoc.sistema_aduanero.controller;
 
-import cl.duoc.sistema_aduanero.dto.AdjuntoViajeMenoresResponse;
 import cl.duoc.sistema_aduanero.dto.SolicitudViajeMenoresRequest;
-import cl.duoc.sistema_aduanero.dto.SolicitudViajeMenoresResponse;
 import cl.duoc.sistema_aduanero.model.AdjuntoViajeMenores;
 import cl.duoc.sistema_aduanero.model.SolicitudViajeMenores;
 import cl.duoc.sistema_aduanero.service.DocumentoAdjuntoService;
@@ -94,9 +92,9 @@ public class SolicitudAduanaController {
     }
   }
 
-  @GetMapping({"/descargar/{id}", "/{id}/adjuntos/zip"})
-  public ResponseEntity<InputStreamResource> descargarTodosLosDocumentos(
-      @PathVariable Long id) {
+  @GetMapping("/descargar/{id}")
+  public ResponseEntity<InputStreamResource>
+  descargarTodosLosDocumentos(@PathVariable Long id) {
     try {
       Optional<SolicitudViajeMenores> solicitudOpt =
           solicitudService.obtenerPorId(id);
@@ -151,74 +149,6 @@ public class SolicitudAduanaController {
       e.printStackTrace();
       return ResponseEntity.internalServerError().build();
     }
-  }
-
-  @GetMapping
-  public ResponseEntity<List<SolicitudViajeMenoresResponse>> obtenerTodas() {
-    List<SolicitudViajeMenores> solicitudes =
-        solicitudService.obtenerTodasConDocumentos();
-    List<SolicitudViajeMenoresResponse> respuesta =
-        solicitudes.stream().map(this::mapearSolicitud).toList();
-    return ResponseEntity.ok(respuesta);
-  }
-
-  @GetMapping("/{id}")
-  public ResponseEntity<SolicitudViajeMenoresResponse> obtenerPorId(
-      @PathVariable Long id) {
-    Optional<SolicitudViajeMenores> opt =
-        solicitudService.obtenerPorIdConDocumentos(id);
-    if (opt.isEmpty()) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(mapearSolicitud(opt.get()));
-  }
-
-  @PutMapping("/{id}/estado")
-  public ResponseEntity<Void> actualizarEstado(
-      @PathVariable Long id, @RequestParam String estado) {
-    try {
-      solicitudService.actualizarEstado(id, estado);
-      return ResponseEntity.ok().build();
-    } catch (RuntimeException ex) {
-      return ResponseEntity.notFound().build();
-    }
-  }
-
-  private SolicitudViajeMenoresResponse mapearSolicitud(SolicitudViajeMenores s) {
-    SolicitudViajeMenoresResponse r = new SolicitudViajeMenoresResponse();
-    r.setId(s.getId());
-    r.setEstado(s.getEstado());
-    r.setFechaCreacion(s.getFechaCreacion());
-    r.setTipoSolicitudMenor(s.getTipoSolicitudMenor());
-    r.setNombreMenor(s.getNombreMenor());
-    r.setFechaNacimientoMenor(s.getFechaNacimientoMenor());
-    r.setDocumentoMenor(s.getDocumentoMenor());
-    r.setNumeroDocumentoMenor(s.getNumeroDocumentoMenor());
-    r.setNacionalidadMenor(s.getNacionalidadMenor());
-    r.setNombrePadreMadre(s.getNombrePadreMadre());
-    r.setRelacionMenor(s.getRelacionMenor());
-    r.setDocumentoPadre(s.getDocumentoPadre());
-    r.setNumeroDocumentoPadre(s.getNumeroDocumentoPadre());
-    r.setTelefonoPadre(s.getTelefonoPadre());
-    r.setEmailPadre(s.getEmailPadre());
-    r.setFechaViaje(s.getFechaViaje());
-    r.setNumeroTransporte(s.getNumeroTransporte());
-    r.setPaisOrigen(s.getPaisOrigen());
-    r.setPaisDestino(s.getPaisDestino());
-    r.setMotivoViaje(s.getMotivoViaje());
-    List<AdjuntoViajeMenoresResponse> docs =
-        s.getDocumentos().stream().map(this::mapearAdjunto).toList();
-    r.setDocumentos(docs);
-    return r;
-  }
-
-  private AdjuntoViajeMenoresResponse mapearAdjunto(AdjuntoViajeMenores a) {
-    AdjuntoViajeMenoresResponse r = new AdjuntoViajeMenoresResponse();
-    r.setId(a.getId());
-    r.setNombreOriginal(a.getNombreOriginal());
-    r.setNombreArchivo(a.getNombreArchivo());
-    r.setRuta(a.getRuta());
-    return r;
   }
 
 }
