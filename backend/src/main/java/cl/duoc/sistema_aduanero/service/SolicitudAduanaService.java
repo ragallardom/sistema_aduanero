@@ -23,6 +23,10 @@ public class SolicitudAduanaService {
     return repository.findAll();
   }
 
+  public List<SolicitudViajeMenores> obtenerTodasConDocumentos() {
+    return repository.findAllWithDocumentos();
+  }
+
   public SolicitudViajeMenores actualizarEstado(Long id, String nuevoEstado) {
     SolicitudViajeMenores solicitud = repository.findById(id).orElseThrow(
         () -> new RuntimeException("Solicitud no encontrada"));
@@ -32,5 +36,9 @@ public class SolicitudAduanaService {
 
   public Optional<SolicitudViajeMenores> obtenerPorId(Long id) {
     return repository.findById(id);
+  }
+
+  public Optional<SolicitudViajeMenores> obtenerPorIdConDocumentos(Long id) {
+    return repository.findByIdWithDocumentos(id);
   }
 }
