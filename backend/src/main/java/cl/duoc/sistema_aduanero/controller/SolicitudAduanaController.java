@@ -5,6 +5,7 @@ import cl.duoc.sistema_aduanero.dto.SolicitudViajeMenoresRequest;
 import cl.duoc.sistema_aduanero.dto.SolicitudViajeMenoresResponse;
 import cl.duoc.sistema_aduanero.model.AdjuntoViajeMenores;
 import cl.duoc.sistema_aduanero.model.SolicitudViajeMenores;
+import cl.duoc.sistema_aduanero.model.EstadoSolicitud;
 import cl.duoc.sistema_aduanero.service.DocumentoAdjuntoService;
 import cl.duoc.sistema_aduanero.service.SolicitudAduanaService;
 import java.io.*;
@@ -171,6 +172,19 @@ public class SolicitudAduanaController {
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(mapearSolicitud(opt.get()));
+  }
+
+  @PutMapping("/{id}/estado")
+  public ResponseEntity<Void> actualizarEstado(
+      @PathVariable Long id,
+      @RequestParam String estado) {
+    try {
+      EstadoSolicitud nuevo = EstadoSolicitud.valueOf(estado.toUpperCase());
+      solicitudService.actualizarEstado(id, nuevo.name());
+      return ResponseEntity.ok().build();
+    } catch (IllegalArgumentException e) {
+      return ResponseEntity.badRequest().build();
+    }
   }
 
   private SolicitudViajeMenoresResponse mapearSolicitud(SolicitudViajeMenores s) {
