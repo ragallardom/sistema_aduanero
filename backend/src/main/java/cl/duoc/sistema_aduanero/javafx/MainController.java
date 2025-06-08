@@ -215,7 +215,7 @@ public class MainController {
       showAlert(Alert.AlertType.WARNING, "Selecciona una solicitud primero.");
       return;
     }
-    cambiarEstado(sel.getId(), "APROBADA");
+    cambiarEstado(sel.getId(), "APROBADO");
   }
 
   // ======================
@@ -229,7 +229,7 @@ public class MainController {
       showAlert(Alert.AlertType.WARNING, "Selecciona una solicitud primero.");
       return;
     }
-    cambiarEstado(sel.getId(), "RECHAZADA");
+    cambiarEstado(sel.getId(), "RECHAZADO");
   }
 
   // ======================

@@ -120,4 +120,21 @@ class SolicitudAduanaControllerTest {
     verify(solicitudService).crearSolicitud(captor.capture());
     assertEquals("Chile", captor.getValue().getPaisOrigen());
   }
+
+  @Test
+  void cambiarEstado() throws Exception {
+    SolicitudViajeMenores solicitud = new SolicitudViajeMenores();
+    solicitud.setId(7L);
+
+    Mockito
+        .when(solicitudService.actualizarEstado(7L, "APROBADO"))
+        .thenReturn(solicitud);
+
+    mockMvc
+        .perform(put("/api/solicitudes/7/estado")
+                     .param("estado", "APROBADO"))
+        .andExpect(status().isOk());
+
+    verify(solicitudService).actualizarEstado(7L, "APROBADO");
+  }
 }
