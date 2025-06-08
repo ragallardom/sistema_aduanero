@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="95" fill="#0055A4" />
+  <path d="M100 35 L115 80 H165 L125 110 L140 160 L100 130 L60 160 L75 110 L35 80 H85 Z" fill="#FFFFFF" />
+  <text x="100" y="185" text-anchor="middle" font-size="32" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif">ADUANAS</text>
+</svg>

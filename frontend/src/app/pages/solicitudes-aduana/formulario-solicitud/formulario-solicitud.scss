@@ -1,0 +1,18 @@
+// Estilos para las secciones del formulario
+.section-wrapper {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+// Alinea los encabezados dentro de cada sección
+.section-wrapper fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.section-wrapper legend {
+  margin: 0;
+  padding: 1rem 0;
+}

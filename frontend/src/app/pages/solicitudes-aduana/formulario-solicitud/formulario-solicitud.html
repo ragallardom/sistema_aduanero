@@ -1,0 +1,541 @@
+<!-- src/app/pages/solicitudes-aduana/formulario-solicitud/formulario-solicitud.component.html -->
+<div class="container">
+  <h2 class="mb-4">Registrar Nueva Solicitud Viaje de Menor</h2>
+
+  <!-- Mensaje de error general -->
+  <div *ngIf="errorMsg" class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+  <div *ngIf="successMsg" class="alert alert-success">
+    {{ successMsg }}
+  </div>
+
+  <form
+    [formGroup]="formulario"
+    (ngSubmit)="guardar()"
+  >
+    <!-- Datos del menor -->
+    <div class="section-wrapper mb-4">
+      <fieldset>
+        <legend class="fs-5">Datos del menor</legend>
+
+      <!-- Tipo de solicitud -->
+      <div class="mb-3">
+        <label class="form-label d-block">Tipo de solicitud</label>
+        <div class="btn-group" role="group" aria-label="Tipo Solicitud">
+          <input
+            type="radio"
+            class="btn-check"
+            formControlName="tipoSolicitudMenor"
+            value="Entrada"
+            id="solicitud-entrada"
+          />
+          <label class="btn btn-outline-primary" for="solicitud-entrada"
+            >Entrada</label
+          >
+
+          <input
+            type="radio"
+            class="btn-check"
+            formControlName="tipoSolicitudMenor"
+            value="Salida"
+            id="solicitud-salida"
+          />
+          <label class="btn btn-outline-primary" for="solicitud-salida"
+            >Salida</label
+          >
+        </div>
+        <div
+          *ngIf="
+            formulario.get('tipoSolicitudMenor')?.invalid &&
+            formulario.get('tipoSolicitudMenor')?.touched
+          "
+          class="text-danger mt-1"
+        >
+          Debes seleccionar el tipo de solicitud.
+        </div>
+      </div>
+
+      <!-- Nombre completo del menor -->
+      <div class="mb-3">
+        <label class="form-label">Nombre completo del menor</label>
+        <input
+          type="text"
+          formControlName="nombreMenor"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            formulario.get('nombreMenor')?.invalid &&
+            formulario.get('nombreMenor')?.touched
+          "
+          class="text-danger"
+        >
+          El nombre del menor es obligatorio.
+        </div>
+      </div>
+
+      <!-- Fecha de nacimiento -->
+      <div class="mb-3">
+        <label class="form-label">Fecha de nacimiento</label>
+        <input
+          type="date"
+          formControlName="fechaNacimientoMenor"
+          class="form-control"
+        />
+        <div
+          *ngIf="formulario.get('fechaNacimientoMenor')?.hasError('required') && formulario.get('fechaNacimientoMenor')?.touched"
+          class="text-danger"
+        >
+          La fecha de nacimiento es obligatoria.
+        </div>
+        <div
+          *ngIf="formulario.get('fechaNacimientoMenor')?.hasError('fechaFutura') && formulario.get('fechaNacimientoMenor')?.touched"
+          class="text-danger"
+        >
+          La fecha de nacimiento no puede ser mayor que la actual.
+        </div>
+        <div
+          *ngIf="formulario.get('fechaNacimientoMenor')?.hasError('mayorDeEdad') && formulario.get('fechaNacimientoMenor')?.touched"
+          class="text-danger"
+        >
+          El menor debe tener menos de 18 años.
+        </div>
+      </div>
+
+      <!-- Tipo Documento del menor -->
+      <div class="mb-3">
+        <label class="form-label d-block">Documento del menor</label>
+        <div class="btn-group" role="group" aria-label="Tipo Documento Menor">
+          <input
+            type="radio"
+            class="btn-check"
+            formControlName="documentoMenor"
+            value="RUT"
+            id="menor-rut"
+          />
+          <label class="btn btn-outline-primary" for="menor-rut">RUT</label>
+
+          <input
+            type="radio"
+            class="btn-check"
+            formControlName="documentoMenor"
+            value="Pasaporte"
+            id="menor-pasaporte"
+          />
+          <label class="btn btn-outline-primary" for="menor-pasaporte"
+            >Pasaporte</label
+          >
+        </div>
+      <div
+        *ngIf="
+          formulario.get('documentoMenor')?.invalid &&
+          formulario.get('documentoMenor')?.touched
+        "
+        class="text-danger mt-1"
+      >
+        Debes seleccionar el documento.
+      </div>
+    </div>
+
+    <div class="mb-3" *ngIf="formulario.get('documentoMenor')?.value === 'RUT'">
+      <label class="form-label">RUT del menor</label>
+      <input
+        type="text"
+        formControlName="numeroDocumentoMenor"
+        class="form-control"
+        (input)="formatearRut($event, 'numeroDocumentoMenor')"
+      />
+      <div
+        *ngIf="
+          formulario.get('numeroDocumentoMenor')?.invalid &&
+          formulario.get('numeroDocumentoMenor')?.touched
+        "
+        class="text-danger"
+      >
+        Ingresa un RUT válido.
+      </div>
+      <div
+        *ngIf="
+          formulario.hasError('documentoDuplicado') &&
+          formulario.get('numeroDocumentoMenor')?.touched &&
+          formulario.get('numeroDocumentoPadre')?.touched
+        "
+        class="text-danger"
+      >
+        El documento del menor debe ser distinto al del padre, madre o tutor.
+      </div>
+    </div>
+    <div class="mb-3" *ngIf="formulario.get('documentoMenor')?.value === 'Pasaporte'">
+      <label class="form-label">Pasaporte del menor</label>
+      <input
+        type="text"
+        formControlName="numeroDocumentoMenor"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          formulario.get('numeroDocumentoMenor')?.invalid &&
+          formulario.get('numeroDocumentoMenor')?.touched
+        "
+        class="text-danger"
+      >
+        El número de pasaporte es obligatorio.
+      </div>
+      <div
+        *ngIf="
+          formulario.hasError('documentoDuplicado') &&
+          formulario.get('numeroDocumentoMenor')?.touched &&
+          formulario.get('numeroDocumentoPadre')?.touched
+        "
+        class="text-danger"
+      >
+        El documento del menor debe ser distinto al del padre, madre o tutor.
+      </div>
+    </div>
+
+      <!-- Nacionalidad -->
+      <div class="mb-3">
+        <label class="form-label">Nacionalidad</label>
+        <select formControlName="nacionalidadMenor" class="form-select">
+          <option value="" disabled>-- Selecciona --</option>
+          <option value="Chilena">Chilena</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Peruana">Peruana</option>
+          <option value="Uruguaya">Uruguaya</option>
+          <option value="Paraguaya">Paraguaya</option>
+          <option value="Boliviana">Boliviana</option>
+          <option value="Colombiana">Colombiana</option>
+        </select>
+        <div
+          *ngIf="
+            formulario.get('nacionalidadMenor')?.invalid &&
+            formulario.get('nacionalidadMenor')?.touched
+          "
+          class="text-danger"
+        >
+          Debes seleccionar la nacionalidad.
+        </div>
+      </div>
+
+      </fieldset>
+    </div>
+
+  <!-- Detalles del viaje -->
+  <div class="section-wrapper mb-4">
+    <fieldset>
+      <legend class="fs-5">Detalles del viaje</legend>
+
+      <!-- Fecha de viaje -->
+      <div class="mb-3">
+        <label class="form-label">Fecha de viaje</label>
+        <input type="date" formControlName="fechaViaje" class="form-control" />
+        <div
+          *ngIf="formulario.get('fechaViaje')?.hasError('required') && formulario.get('fechaViaje')?.touched"
+          class="text-danger"
+        >
+          La fecha de viaje es obligatoria.
+        </div>
+        <div
+          *ngIf="formulario.get('fechaViaje')?.hasError('fechaPasada') && formulario.get('fechaViaje')?.touched"
+          class="text-danger"
+        >
+          La fecha de viaje no puede ser anterior a hoy.
+        </div>
+        <div
+          *ngIf="formulario.get('fechaViaje')?.hasError('fechaLejana') && formulario.get('fechaViaje')?.touched"
+          class="text-danger"
+        >
+          La fecha de viaje no puede exceder un año desde hoy.
+        </div>
+      </div>
+
+      <!-- Número de vuelo / barco / bus -->
+      <div class="mb-3">
+        <label class="form-label">Número de vuelo / bus</label>
+        <input
+          type="text"
+          formControlName="numeroTransporte"
+          class="form-control"
+        />
+        <div
+          *ngIf="formulario.get('numeroTransporte')?.invalid && formulario.get('numeroTransporte')?.touched"
+          class="text-danger"
+        >
+          El número de transporte es obligatorio.
+        </div>
+      </div>
+
+      <!-- País de Origen (solo entrada) -->
+      <div class="mb-3" *ngIf="formulario.get('tipoSolicitudMenor')?.value === 'Entrada'">
+        <label class="form-label">País de Origen</label>
+        <select formControlName="paisOrigen" class="form-select">
+          <option value="" disabled>-- Selecciona --</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Brasil">Brasil</option>
+          <option value="Perú">Perú</option>
+        </select>
+        <div
+          *ngIf="formulario.get('paisOrigen')?.invalid && formulario.get('paisOrigen')?.touched"
+          class="text-danger"
+        >
+          El país de origen es obligatorio.
+        </div>
+      </div>
+
+      <!-- País de Destino (solo salida) -->
+      <div class="mb-3" *ngIf="formulario.get('tipoSolicitudMenor')?.value === 'Salida'">
+        <label class="form-label">País de Destino</label>
+        <select formControlName="paisDestino" class="form-select">
+          <option value="" disabled>-- Selecciona --</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Brasil">Brasil</option>
+          <option value="Perú">Perú</option>
+        </select>
+        <div
+          *ngIf="formulario.get('paisDestino')?.invalid && formulario.get('paisDestino')?.touched"
+          class="text-danger"
+        >
+          El país de destino es obligatorio.
+        </div>
+      </div>
+
+      <!-- Motivo del viaje -->
+      <div class="mb-3">
+        <label class="form-label">Motivo del viaje</label>
+        <input type="text" formControlName="motivoViaje" class="form-control" />
+        <div
+          *ngIf="formulario.get('motivoViaje')?.invalid && formulario.get('motivoViaje')?.touched"
+          class="text-danger"
+        >
+          El motivo del viaje es obligatorio.
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Datos de los padres o tutores legales -->
+    <div class="section-wrapper mb-4">
+      <fieldset>
+        <legend class="fs-5">Datos de los padres o tutores legales</legend>
+
+      <!-- Nombre completo del padre/madre -->
+      <div class="mb-3">
+        <label class="form-label">Nombre completo (Padre/Madre)</label>
+        <input
+          type="text"
+          formControlName="nombrePadreMadre"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            formulario.get('nombrePadreMadre')?.invalid &&
+            formulario.get('nombrePadreMadre')?.touched
+          "
+          class="text-danger"
+        >
+          El nombre es obligatorio.
+        </div>
+      </div>
+
+      <!-- Relación con el menor -->
+      <div class="mb-3">
+        <label class="form-label">Relación con el menor</label>
+        <select formControlName="relacionMenor" class="form-select">
+          <option value="" disabled>-- Selecciona --</option>
+          <option value="Padre">Padre</option>
+          <option value="Madre">Madre</option>
+          <option value="Tutor legal">Tutor legal</option>
+        </select>
+        <div
+          *ngIf="
+            formulario.get('relacionMenor')?.invalid &&
+            formulario.get('relacionMenor')?.touched
+          "
+          class="text-danger"
+        >
+          Debes indicar la relación con el menor.
+        </div>
+      </div>
+
+      <!-- Tipo Documento del padre o tutor -->
+      <div class="mb-3">
+        <label class="form-label d-block">Documento del padre o tutor</label>
+        <div class="btn-group" role="group" aria-label="Tipo Documento Padre">
+          <input
+            type="radio"
+            class="btn-check"
+            formControlName="documentoPadre"
+            value="RUT"
+            id="padre-rut"
+          />
+          <label class="btn btn-outline-primary" for="padre-rut">RUT</label>
+
+          <input
+            type="radio"
+            class="btn-check"
+            formControlName="documentoPadre"
+            value="Pasaporte"
+            id="padre-pasaporte"
+          />
+          <label class="btn btn-outline-primary" for="padre-pasaporte"
+            >Pasaporte</label
+          >
+        </div>
+      <div
+        *ngIf="
+          formulario.get('documentoPadre')?.invalid &&
+          formulario.get('documentoPadre')?.touched
+        "
+        class="text-danger mt-1"
+      >
+        Debes seleccionar el documento.
+      </div>
+    </div>
+
+    <div class="mb-3" *ngIf="formulario.get('documentoPadre')?.value === 'RUT'">
+      <label class="form-label">RUT del padre o tutor</label>
+      <input
+        type="text"
+        formControlName="numeroDocumentoPadre"
+        class="form-control"
+        (input)="formatearRut($event, 'numeroDocumentoPadre')"
+      />
+      <div
+        *ngIf="
+          formulario.get('numeroDocumentoPadre')?.invalid &&
+          formulario.get('numeroDocumentoPadre')?.touched
+        "
+        class="text-danger"
+      >
+        Ingresa un RUT válido.
+      </div>
+      <div
+        *ngIf="
+          formulario.hasError('documentoDuplicado') &&
+          formulario.get('numeroDocumentoMenor')?.touched &&
+          formulario.get('numeroDocumentoPadre')?.touched
+        "
+        class="text-danger"
+      >
+        El documento del menor debe ser distinto al del padre, madre o tutor.
+      </div>
+    </div>
+    <div class="mb-3" *ngIf="formulario.get('documentoPadre')?.value === 'Pasaporte'">
+      <label class="form-label">Pasaporte del padre o tutor</label>
+      <input
+        type="text"
+        formControlName="numeroDocumentoPadre"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          formulario.get('numeroDocumentoPadre')?.invalid &&
+          formulario.get('numeroDocumentoPadre')?.touched
+        "
+        class="text-danger"
+      >
+        El número de pasaporte es obligatorio.
+      </div>
+      <div
+        *ngIf="
+          formulario.hasError('documentoDuplicado') &&
+          formulario.get('numeroDocumentoMenor')?.touched &&
+          formulario.get('numeroDocumentoPadre')?.touched
+        "
+        class="text-danger"
+      >
+        El documento del menor debe ser distinto al del padre, madre o tutor.
+      </div>
+    </div>
+
+      <!-- Teléfono -->
+      <div class="mb-3">
+        <label class="form-label">Teléfono de contacto</label>
+        <input
+          type="text"
+          formControlName="telefonoPadre"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            formulario.get('telefonoPadre')?.invalid &&
+            formulario.get('telefonoPadre')?.touched
+          "
+          class="text-danger"
+        >
+          El teléfono es obligatorio.
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          formControlName="emailPadre"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            formulario.get('emailPadre')?.invalid &&
+            formulario.get('emailPadre')?.touched
+          "
+          class="text-danger"
+        >
+          Ingresa un correo electrónico válido.
+        </div>
+      </div>
+      </fieldset>
+    </div>
+
+  <!-- Documentos Adjuntos -->
+  <div class="section-wrapper mb-4">
+    <fieldset>
+      <legend class="fs-5">Documentos Adjuntos</legend>
+
+      <div class="mb-3">
+        <label class="form-label">Cédula de identidad o pasaporte del menor</label>
+        <input type="file" (change)="onArchivoSeleccionado($event, 'idMenor')" class="form-control" />
+      </div>
+
+      <div class="mb-3" *ngIf="formulario.get('nacionalidadMenor')?.value === 'Chilena'">
+        <label class="form-label">Certificado de nacimiento</label>
+        <input type="file" (change)="onArchivoSeleccionado($event, 'certNacimiento')" class="form-control" />
+      </div>
+
+      <div class="mb-3" *ngIf="formulario.get('nacionalidadMenor')?.value === 'Chilena'">
+        <label class="form-label">Permiso notarial firmado por ambos padres</label>
+        <input type="file" (change)="onArchivoSeleccionado($event, 'permisoNotarial')" class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Cédula de identidad o pasaporte de los padres o tutor</label>
+        <input type="file" (change)="onArchivoSeleccionado($event, 'idPadres')" class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Pasaje o itinerario de viaje</label>
+        <input type="file" (change)="onArchivoSeleccionado($event, 'pasajeItinerario')" class="form-control" />
+      </div>
+    </fieldset>
+  </div>
+
+
+  <!-- Botones -->
+  <button
+    type="submit"
+    class="btn btn-primary me-2"
+    [disabled]="formulario.invalid"
+  >
+    Enviar Solicitud
+  </button>
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="cancelar()"
+  >
+    Cancelar
+  </button>
+</form>
+</div>
