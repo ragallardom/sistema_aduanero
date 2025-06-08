@@ -33,7 +33,7 @@ class DocumentoAdjuntoServiceTest {
   @BeforeEach
   void setUp() throws Exception {
     tempDir = Files.createTempDirectory("uploads");
-    ReflectionTestUtils.setField(service, "BASE_PATH", tempDir.toString());
+    ReflectionTestUtils.setField(service, "basePath", tempDir.toString());
   }
 
   @AfterEach

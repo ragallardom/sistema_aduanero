@@ -22,18 +22,15 @@ Cree una base de datos llamada `aduana` y un usuario con las credenciales indica
 
 ## Configuración de la carpeta de cargas
 
-El servidor guarda archivos en la ruta indicada en `DocumentoAdjuntoService` y los sirve de forma estática:
+El servidor guarda archivos en la ruta definida por la propiedad `app.upload.base-dir` y los sirve de forma estática.
 
 ```
-private final String BASE_PATH = "C:/Users/ragal/IdeaProjects/sistema_aduanero/uploads";
-```
-
-```
-spring.web.resources.static-locations=file:///C:/Users/ragal/IdeaProjects/sistema_aduanero/uploads/
+app.upload.base-dir=backend/uploads
+spring.web.resources.static-locations=file:${app.upload.base-dir}/
 spring.mvc.static-path-pattern=/uploads/**
 ```
 
-Actualice estas rutas para que apunten a un directorio existente en su máquina y asegúrese de que la propiedad `spring.web.resources.static-locations` comience con `file:///`.
+Asegúrese de que la carpeta indicada exista antes de iniciar el servidor.
 
 ## Compilar y ejecutar el servidor
 
