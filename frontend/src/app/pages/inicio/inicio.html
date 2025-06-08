@@ -4,3 +4,23 @@
     <span class="me-2">🧒✈️</span> Solicitud Viaje de Menor
   </a>
 </div>
+
+<button
+  class="btn btn-secondary accessibility-btn"
+  type="button"
+  (click)="toggleAccessibilityMenu()"
+>
+  Accesibilidad
+</button>
+
+<div *ngIf="showAccessibilityMenu" class="card accessibility-menu">
+  <div class="card-body">
+    <h5 class="card-title">Opciones de Accesibilidad</h5>
+    <ul class="list-unstyled mb-0">
+      <li><button class="btn btn-link p-0">Aumentar tamaño de texto</button></li>
+      <li><button class="btn btn-link p-0">Contraste alto</button></li>
+      <li><button class="btn btn-link p-0">Leer en voz alta</button></li>
+      <li><button class="btn btn-link p-0">Navegación por teclado</button></li>
+    </ul>
+  </div>
+</div>

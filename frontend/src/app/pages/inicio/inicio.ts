@@ -9,4 +9,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './inicio.html',
   styleUrls: ['./inicio.scss']
 })
-export class InicioComponent {}
+export class InicioComponent {
+  protected showAccessibilityMenu = false;
+
+  protected toggleAccessibilityMenu(): void {
+    this.showAccessibilityMenu = !this.showAccessibilityMenu;
+  }
+}

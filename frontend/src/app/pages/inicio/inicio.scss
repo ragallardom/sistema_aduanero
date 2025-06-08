@@ -7,3 +7,18 @@
   font-size: 1.5rem;
   padding: 2rem 3rem;
 }
+
+.accessibility-btn {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1050;
+}
+
+.accessibility-menu {
+  position: fixed;
+  bottom: 4rem;
+  right: 1rem;
+  width: 250px;
+  z-index: 1050;
+}
