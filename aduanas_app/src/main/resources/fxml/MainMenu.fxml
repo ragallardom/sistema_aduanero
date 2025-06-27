@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Separator?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Tooltip?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="cl.duoc.aduanas_app.controller.MainMenuController" >
     <!-- Lateral izquierdo (Menú) -->
     <left>
@@ -37,19 +38,28 @@
                 </padding>
                 <Button styleClass="menu-btn " graphicTextGap="10">
                     <graphic><ImageView fitWidth="24" fitHeight="24"><image><Image url="/img/home.png"/></image></ImageView></graphic>
+                    <tooltip><Tooltip text="Inicio"/></tooltip>
                 </Button>
                 <Button styleClass="menu-btn" onAction="#onSeguimiento">
                     <graphic><ImageView fitWidth="24" fitHeight="24"><image><Image url="/img/search.png"/></image></ImageView></graphic>
+                    <tooltip><Tooltip text="Seguimiento"/></tooltip>
                 </Button>
                 <Button styleClass="menu-btn">
                     <graphic><ImageView fitWidth="24" fitHeight="24"><image><Image url="/img/history.png"/></image></ImageView></graphic>
+                    <tooltip><Tooltip text="Historial"/></tooltip>
                 </Button>
                 <Button styleClass="menu-btn">
                     <graphic><ImageView fitWidth="24" fitHeight="24"><image><Image url="/img/form.png"/></image></ImageView></graphic>
+                    <tooltip><Tooltip text="Nuevo trámite"/></tooltip>
                 </Button>
                 <Pane VBox.vgrow="ALWAYS"/><!-- Espaciador -->
                 <Button styleClass="menu-btn">
                     <graphic><ImageView fitWidth="24" fitHeight="24"><image><Image url="/img/settings.png"/></image></ImageView></graphic>
+                    <tooltip><Tooltip text="Configuración"/></tooltip>
+                </Button>
+                <Button styleClass="menu-btn" onAction="#handleLogout">
+                    <graphic><ImageView fitWidth="24" fitHeight="24"><image><Image url="/img/other.png"/></image></ImageView></graphic>
+                    <tooltip><Tooltip text="Cerrar sesión"/></tooltip>
                 </Button>
             </VBox>
         </VBox>
