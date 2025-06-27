@@ -1,0 +1,91 @@
+package cl.perfulandia.sale.service;
+
+import cl.perfulandia.sale.dto.SaleRequest;
+import cl.perfulandia.sale.dto.SaleResponse;
+import cl.perfulandia.sale.model.Sale;
+import cl.perfulandia.sale.repository.SaleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class SaleService {
+
+    
+    private static final String BRANCH_SERVICE_URL = "http://localhost:8083/branches";
+    private static final String CATALOG_SERVICE_URL = "http://localhost:8082/catalog/products";
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private SaleRepository saleRepository;
+
+    public SaleResponse createSale(SaleRequest request) {
+
+        String inventoryTemplate = BRANCH_SERVICE_URL
+                + "/{branchId}/inventory/{productId}";
+
+
+        Map<?, ?> inventoryResponse;
+        try {
+            inventoryResponse = restTemplate.getForObject(
+                    inventoryTemplate,        // "http://localhost:8083/branches/{branchId}/inventory/{productId}"
+                    Map.class,
+                    request.getBranchId(),     // valor para {branchId}
+                    request.getProductId()     // valor para {productId}
+            );
+        } catch (RestClientException e) {
+            throw new RuntimeException("Error contactando Branch Service: "
+                    + e.getMessage());
+        }
+
+
+        Integer stockDisponible = Integer.valueOf(inventoryResponse.get("stock").toString());
+        if (stockDisponible < request.getQuantity()) {
+            throw new RuntimeException("Stock insuficiente en branch "
+                    + request.getBranchId() + " para product "
+                    + request.getProductId());
+        }
+
+
+        String catalogTemplate = CATALOG_SERVICE_URL + "/{productId}";
+        Map<?, ?> productResponse;
+        try {
+            productResponse = restTemplate.getForObject(
+                    catalogTemplate,
+                    Map.class,
+                    request.getProductId()
+            );
+        } catch (RestClientException e) {
+            throw new RuntimeException("Error contactando Catalog Service: "
+                    + e.getMessage());
+        }
+
+        Double unitPrice = Double.valueOf(productResponse.get("price").toString());
+
+
+        Sale sale = new Sale();
+        sale.setUserId(request.getUserId());
+        sale.setProductId(request.getProductId());
+        sale.setBranchId(request.getBranchId());
+        sale.setQuantity(request.getQuantity());
+        sale.setUnitPrice(unitPrice);
+        sale.setTotalPrice(unitPrice * request.getQuantity());
+        sale.setTimestamp(LocalDateTime.now());
+        Sale saved = saleRepository.save(sale);
+
+
+        SaleResponse response = new SaleResponse();
+        response.setSaleId(saved.getId());
+        response.setUnitPrice(saved.getUnitPrice());
+        response.setTotalPrice(saved.getTotalPrice());
+        response.setTimestamp(saved.getTimestamp());
+        return response;
+    }
+}

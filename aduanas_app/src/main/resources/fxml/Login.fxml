@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cl.duoc.aduanas_app.controller.LoginController" stylesheets="/css/Style.css" prefWidth="400" prefHeight="500">
+    <VBox spacing="15" alignment="CENTER"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          maxWidth="400" maxHeight="500">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+
+        <ImageView fitHeight="80" fitWidth="80">
+            <image>
+                <Image url="/img/LogoAduana.png"/>
+            </image>
+        </ImageView>
+
+        <Label text="Sistema Aduanero" styleClass="title"/>
+        <Label text="Inicia sesión en el sistema" styleClass="subtitle"/>
+
+        <VBox spacing="10" maxWidth="250">
+            <Label text="Usuario"/>
+            <TextField fx:id="tfUsername" promptText="Usuario"/>
+
+            <Label text="Contraseña"/>
+            <PasswordField fx:id="tfPassword" promptText="••••••••••"/>
+        </VBox>
+
+
+        <Label fx:id="lblMesaje" styleClass="error-message"/>
+        <Button text="Continuar" onAction="#handleLogin" styleClass="login-button"/>
+        <Hyperlink text="Servicio Nacional de Aduanas"/>
+        <Hyperlink text="accesibilidad" onAction="#handleAccesibilidad"/>
+
+
+    </VBox>
+
+
+</AnchorPane>

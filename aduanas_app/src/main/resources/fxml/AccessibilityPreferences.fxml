@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cl.duoc.aduanas_app.controller.AccessibilityController"
+            prefWidth="400" prefHeight="500">
+
+    <VBox spacing="15" alignment="TOP_LEFT" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <Hyperlink text="Back" onAction="#handleBack"/>
+        <Label text="Preferencias de accesibilidad" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+        <HBox spacing="10">
+            <Label text="Modo alto contraste" />
+            <ToggleButton fx:id="toggleContraste"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Lectura en voz alta" />
+            <ToggleButton fx:id="toggleLectura" selected="true"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Tamaño de fuente" />
+            <ToggleButton fx:id="toggleFuente"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Navegación por teclado" />
+            <ToggleButton fx:id="toggleTeclado"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Idioma" />
+            <ComboBox fx:id="comboIdioma" prefWidth="150"/>
+        </HBox>
+
+        <Button text="Guardar preferencias" onAction="#handleGuardar" style="-fx-background-color: #4a90e2; -fx-text-fill: white;"/>
+    </VBox>
+
+
+</AnchorPane>

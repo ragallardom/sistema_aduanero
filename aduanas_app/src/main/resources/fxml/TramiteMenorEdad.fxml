@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="cl.duoc.aduanas_app.controller.MinorFormController" style="-fx-background-color: white;">
+
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Hyperlink text="← Volver" onAction="#handleBack"  style="-fx-text-fill: #1976D2; -fx-font-size: 14px; -fx-cursor: hand;" />
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="40" bottom="20" left="40"/>
+            </padding>
+
+            <Label text="Formulario de menor" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1976D2;"/>
+
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150"/>
+                    <ColumnConstraints minWidth="250" hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Nombre menor -->
+                <Label text="Nombre del menor" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNombreMenor" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorNombreMenor" textFill="red" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- Apellido menor (opcional, si lo necesitas) -->
+                <!--
+                <Label text="Apellido del menor" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtApellidoMenor" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                -->
+
+                <Label text="Fecha de nacimiento" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="dpFechaNacimiento" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorFechaNacimiento" textFill="red" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Sexo" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbSexo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Nacionalidad" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbNacionalidad" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Tipo documento menor" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbTipoDocumentoMenor" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorTipoDocMenor" textFill="red" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+                <Label text="Documento menor" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDocumentoMenor" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorDocMenor" textFill="red" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+                <Label text="Tipo documento padre/tutor" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbTipoDocumentoPadre" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorTipoDocPadre" textFill="red" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+
+                <Label text="Documento padre/tutor" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDocumentoPadre" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorDocPadre" textFill="red" GridPane.rowIndex="13" GridPane.columnIndex="1"/>
+
+                <Label text="Nombre del padre/madre/tutor" GridPane.rowIndex="14" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNombrePadre" GridPane.rowIndex="14" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorNombrePadre" textFill="red" GridPane.rowIndex="15" GridPane.columnIndex="1"/>
+
+                <Label text="Email contacto" GridPane.rowIndex="16" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtEmailPadre" GridPane.rowIndex="16" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorEmailPadre" textFill="red" GridPane.rowIndex="17" GridPane.columnIndex="1"/>
+
+                <Label text="Teléfono contacto" GridPane.rowIndex="18" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtTelefonoPadre" GridPane.rowIndex="18" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorTelefonoPadre" textFill="red" GridPane.rowIndex="19" GridPane.columnIndex="1"/>
+
+                <Label text="País de origen" GridPane.rowIndex="20" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbPaisOrigen" GridPane.rowIndex="20" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorPaisOrigen" textFill="red" GridPane.rowIndex="21" GridPane.columnIndex="1"/>
+
+                <Label text="País de destino" GridPane.rowIndex="22" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbPaisDestino" GridPane.rowIndex="22" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorPaisDestino" textFill="red" GridPane.rowIndex="23" GridPane.columnIndex="1"/>
+
+                <Label text="Relación con el menor" GridPane.rowIndex="24" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtRelacion" GridPane.rowIndex="24" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorRelacion" textFill="red" GridPane.rowIndex="25" GridPane.columnIndex="1"/>
+
+                <Label text="Fecha de viaje" GridPane.rowIndex="26" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="dpFechaViaje" GridPane.rowIndex="26" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorFechaViaje" textFill="red" GridPane.rowIndex="27" GridPane.columnIndex="1"/>
+
+                <Label text="Motivo del viaje" GridPane.rowIndex="28" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtMotivo" GridPane.rowIndex="28" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorMotivo" textFill="red" GridPane.rowIndex="29" GridPane.columnIndex="1"/>
+
+                <Label text="Número de transporte" GridPane.rowIndex="30" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNumeroTransporte" GridPane.rowIndex="30" GridPane.columnIndex="1"/>
+                <Label fx:id="lblErrorNumeroTransporte" textFill="red" GridPane.rowIndex="31" GridPane.columnIndex="1"/>
+
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Adjuntar Documento" onAction="#handleAdjuntar" style="-fx-background-color: #1976D2; -fx-text-fill: white;"/>
+                <Label fx:id="lblMensaje" style="-fx-text-fill: red;"/>
+            </HBox>
+
+            <Button text="Guardar Trámite" onAction="#handleGuardar" style="-fx-background-color: #1976D2; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 20 8 20;"/>
+
+        </VBox>
+    </center>
+</BorderPane>

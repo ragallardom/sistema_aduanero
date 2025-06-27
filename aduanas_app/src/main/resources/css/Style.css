@@ -1,0 +1,147 @@
+.title {
+    -fx-font-size: 24px;
+    -fx-text-fill: #1976D2;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1976D2;
+    -fx-font-weight: bold;
+}
+
+.login-button {
+    -fx-background-color: #649CFF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.error-message {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}
+
+.input-field {
+    -fx-pref-width: 160px;
+    -fx-background-color: white;
+    -fx-border-color: #66aaff;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.estado-aprobado {
+    -fx-text-fill: green;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.estado-rechazado {
+    -fx-text-fill: red;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.estado-pendiente {
+    -fx-text-fill: #FFA500; /* Naranja */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+
+.sidebar {
+    -fx-background-color: #66aaff; /* rojo vivo de prueba */
+}
+
+
+.separator {
+    -fx-border-width: 0 1 0 0;   /* 1px borde derecho */
+    -fx-border-color: #cccccc;
+}
+
+.content-pane {
+    -fx-background-color: white;
+}
+
+.username {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.email {
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+}
+
+.menu-btn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+}
+
+.menu-btn:hover {
+    -fx-background-color: #ffffff33;
+}
+
+.menu-btn.selected {
+    -fx-background-color: #ffcccc;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-text-fill: #66aaff;
+}
+
+.footer {
+    -fx-font-size: 10px;
+    -fx-text-fill: #777;
+}
+
+.tile-btn {
+    -fx-pref-width: 150px;
+    -fx-pref-height: 100px;
+    -fx-alignment: center;
+}
+
+
+.window-root {
+    -fx-background-color: #F2F7FF;
+}
+
+.header-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+}
+
+.tile-btn {
+    -fx-pref-width: 150px;
+    -fx-pref-height: 100px;
+    -fx-background-color: #66aaff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);
+}
+
+.tile-btn:hover {
+    -fx-background-color: #66aaff;
+}
+
+.primary-btn {
+    -fx-background-color: #66aaff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 8 20 8 20;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);
+}
+
+.primary-btn:hover {
+    -fx-background-color: #66aaff;
+}

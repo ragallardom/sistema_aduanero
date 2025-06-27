@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="cl.duoc.aduanas_app.controller.CollaboratorViewController"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="/css/Style.css">
+        <VBox spacing="8" alignment="CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+              AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Button text="Refrescar Lista" onAction="#refrescarTabla"/>
+
+
+            <TableView fx:id="tableSolicitudes" prefHeight="300" prefWidth="580">
+                <columns>
+                    <TableColumn fx:id="colId"              text="ID"               prefWidth="50"/>
+                    <TableColumn fx:id="colNombre"          text="Solicitante"      prefWidth="120"/>
+                    <TableColumn fx:id="colRut"             text="RUT"              prefWidth="100"/>
+                    <TableColumn fx:id="colDestino"         text="Destino"          prefWidth="100"/>
+                    <TableColumn fx:id="colFechaSolicitud"  text="Fecha Solicitud"  prefWidth="100"/>
+                    <TableColumn fx:id="colFechaSalida"     text="Fecha Salida"     prefWidth="100"/>
+                    <TableColumn fx:id="colEstado"          text="Estado"           prefWidth="80"/>
+                </columns>
+            </TableView>
+
+
+            <HBox spacing="10">
+                <Button text="Ver Detalle" onAction="#verDetalle"/>
+                <Button text="Aprobar" onAction="#aprobar"/>
+                <Button text="Rechazar" onAction="#rechazar"/>
+            </HBox>
+
+            <Button text="Volver" onAction="#handleBack" maxWidth="100"/>
+            <Label fx:id="lblMensaje" />
+        </VBox>
+
+
+</AnchorPane>
+
+
+
+
+
+
