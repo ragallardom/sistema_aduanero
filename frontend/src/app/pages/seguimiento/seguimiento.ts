@@ -20,9 +20,40 @@ export class SeguimientoComponent {
 
   protected buscar(): void {
     this.errorMsg = '';
+    if (!esRutValido(this.rut)) {
+      this.resultados = [];
+      this.errorMsg = 'Ingresa un RUT válido.';
+      return;
+    }
     this.servicio.obtenerPorRutMenor(this.rut).subscribe({
-      next: (data) => (this.resultados = data),
+      next: (data) => {
+        this.resultados = data;
+        if (!data.length) {
+          this.errorMsg = 'No existen solicitudes para el RUT ingresado.';
+        }
+      },
       error: () => (this.errorMsg = 'No se pudo obtener la información'),
     });
   }
+}
+
+function esRutValido(value: string): boolean {
+  if (!value) {
+    return false;
+  }
+  const clean = value.replace(/\./g, '');
+  const rutPattern = /^[0-9]+-[0-9kK]{1}$/;
+  if (!rutPattern.test(clean)) {
+    return false;
+  }
+  const [num, dv] = clean.split('-');
+  let sum = 0;
+  let multiplier = 2;
+  for (let i = num.length - 1; i >= 0; i--) {
+    sum += parseInt(num.charAt(i), 10) * multiplier;
+    multiplier = multiplier === 7 ? 2 : multiplier + 1;
+  }
+  const expected = 11 - (sum % 11);
+  const dvCalc = expected === 11 ? '0' : expected === 10 ? 'K' : expected.toString();
+  return dvCalc.toUpperCase() === dv.toUpperCase();
 }
