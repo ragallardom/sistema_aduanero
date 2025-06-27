@@ -51,4 +51,8 @@ export class SolicitudAduanaService {
     const params = new HttpParams().set('rut', rut);
     return this.http.get<SolicitudViajeMenor[]>(`${this.baseUrl}/menor`, { params });
   }
+
+  obtenerPorId(id: number): Observable<SolicitudViajeMenor> {
+    return this.http.get<SolicitudViajeMenor>(`${this.baseUrl}/${id}`);
+  }
 }
