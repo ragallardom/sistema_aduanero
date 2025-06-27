@@ -8,6 +8,7 @@
         placeholder="RUT del menor"
         name="rut"
         [(ngModel)]="rut"
+        (input)="formatearRut($event)"
         required
       />
       <button class="btn btn-primary" type="submit">Buscar</button>
