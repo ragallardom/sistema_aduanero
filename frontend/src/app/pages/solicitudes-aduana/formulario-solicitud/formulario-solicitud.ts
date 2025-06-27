@@ -231,7 +231,7 @@ export class FormularioSolicitudComponent implements OnInit {
             'Creación de solicitud exitosa. \n' +
             'Se ha enviado un comprobante al correo \n' +
             f.emailPadre +
-            '. Para hacer seguimiento debe ir a la página principal e ingresar el rut del menor en la opción Seguimiento';
+            '. Para hacer seguimiento debe ir a la página principal e ingresar el ID de la solicitud en la opción Seguimiento';
           this.errorMsg = '';
           this.isSubmitting = false;
           this.cdr.detectChanges();
