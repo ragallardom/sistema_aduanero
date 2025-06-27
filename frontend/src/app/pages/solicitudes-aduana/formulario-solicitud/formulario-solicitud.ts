@@ -227,7 +227,11 @@ export class FormularioSolicitudComponent implements OnInit {
       .crearConAdjunto(payload, tipos, archivos)
       .subscribe({
         next: () => {
-          this.successMsg = 'Solicitud creada con éxito.';
+          this.successMsg =
+            'Creación de solicitud exitosa. ' +
+            'Se ha enviado un comprobante al correo ' +
+            f.emailPadre +
+            '. Para hacer seguimiento debe ir a la página principal e ingresar el rut del menor';
           this.errorMsg = '';
           this.isSubmitting = false;
           this.cdr.detectChanges();
