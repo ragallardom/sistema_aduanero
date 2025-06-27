@@ -18,6 +18,27 @@ export class SeguimientoComponent {
 
   constructor(private servicio: SolicitudAduanaService) {}
 
+  protected formatearRut(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/[^0-9kK]/g, '').toUpperCase();
+    if (value.length > 1) {
+      const cuerpo = value.slice(0, -1);
+      const dv = value.slice(-1);
+      let formatted = '';
+      for (let i = cuerpo.length - 1, j = 1; i >= 0; i--, j++) {
+        formatted = cuerpo.charAt(i) + formatted;
+        if (j % 3 === 0 && i !== 0) {
+          formatted = '.' + formatted;
+        }
+      }
+      formatted += '-' + dv;
+      input.value = formatted;
+    } else {
+      input.value = value;
+    }
+    this.rut = input.value;
+  }
+
   protected buscar(): void {
     this.errorMsg = '';
     if (!esRutValido(this.rut)) {
