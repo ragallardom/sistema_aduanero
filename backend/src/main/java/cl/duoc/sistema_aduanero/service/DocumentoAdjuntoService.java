@@ -45,7 +45,7 @@ public class DocumentoAdjuntoService {
     }
 
     String nombreFormateado =
-        tipoDocumento.toLowerCase().replaceAll("\\s+", "_") + extension;
+          tipoDocumento.toLowerCase().replaceAll("\\s+", "_") + extension;
 
     Path rutaFinal = Paths.get(carpetaSolicitud, nombreFormateado);
     Files.copy(archivo.getInputStream(), rutaFinal, StandardCopyOption.REPLACE_EXISTING);

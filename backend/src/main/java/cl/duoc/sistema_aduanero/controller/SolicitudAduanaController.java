@@ -185,7 +185,7 @@ public class SolicitudAduanaController {
     return ResponseEntity.ok(mapearSolicitud(opt.get()));
   }
 
-  @PutMapping("/{id}/estado")
+  @ PutMapping("/{id}/estado")
   public ResponseEntity<Void> actualizarEstado(
       @PathVariable Long id,
       @RequestParam String estado) {
