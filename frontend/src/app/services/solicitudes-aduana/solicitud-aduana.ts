@@ -46,4 +46,9 @@ export class SolicitudAduanaService {
 
     return this.http.post<SolicitudViajeMenor>(this.baseUrl, formData);
   }
+
+  obtenerPorRutMenor(rut: string): Observable<SolicitudViajeMenor[]> {
+    const params = new HttpParams().set('rut', rut);
+    return this.http.get<SolicitudViajeMenor[]>(`${this.baseUrl}/menor`, { params });
+  }
 }

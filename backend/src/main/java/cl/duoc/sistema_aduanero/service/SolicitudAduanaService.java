@@ -41,4 +41,8 @@ public class SolicitudAduanaService {
   public Optional<SolicitudViajeMenores> obtenerPorIdConDocumentos(Long id) {
     return repository.findByIdWithDocumentos(id);
   }
+
+  public List<SolicitudViajeMenores> obtenerPorRutMenor(String rut) {
+    return repository.findByNumeroDocumentoMenor(rut);
+  }
 }

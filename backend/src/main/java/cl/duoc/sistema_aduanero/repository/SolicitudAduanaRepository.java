@@ -16,4 +16,6 @@ public interface SolicitudAduanaRepository
   @Query(
       "SELECT s FROM SolicitudViajeMenores s LEFT JOIN FETCH s.documentos WHERE s.id = :id")
   Optional<SolicitudViajeMenores> findByIdWithDocumentos(@Param("id") Long id);
+
+  List<SolicitudViajeMenores> findByNumeroDocumentoMenor(String numeroDocumentoMenor);
 }

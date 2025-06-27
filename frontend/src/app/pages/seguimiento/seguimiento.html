@@ -1,0 +1,35 @@
+<div class="container">
+  <h2 class="mb-4">Seguimiento de Solicitudes</h2>
+  <form (ngSubmit)="buscar()" class="mb-3">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="RUT del menor"
+        name="rut"
+        [(ngModel)]="rut"
+        required
+      />
+      <button class="btn btn-primary" type="submit">Buscar</button>
+    </div>
+  </form>
+  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+  <table *ngIf="resultados.length" class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>RUT</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of resultados">
+        <td>{{ s.id }}</td>
+        <td>{{ s.fechaCreacion | date: 'short' }}</td>
+        <td>{{ s.numeroDocumentoMenor }}</td>
+        <td>{{ s.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
