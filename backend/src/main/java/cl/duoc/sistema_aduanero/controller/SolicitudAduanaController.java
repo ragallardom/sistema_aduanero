@@ -174,7 +174,7 @@ public class SolicitudAduanaController {
     return ResponseEntity.ok(respuesta);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/{id:\\d+}")
   public ResponseEntity<SolicitudViajeMenoresResponse> obtenerPorId(
       @PathVariable Long id) {
     Optional<SolicitudViajeMenores> opt =
