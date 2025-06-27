@@ -3,6 +3,7 @@ package cl.duoc.sistema_aduanero.controller;
 import cl.duoc.sistema_aduanero.dto.AdjuntoViajeMenoresResponse;
 import cl.duoc.sistema_aduanero.dto.SolicitudViajeMenoresRequest;
 import cl.duoc.sistema_aduanero.dto.SolicitudViajeMenoresResponse;
+import cl.duoc.sistema_aduanero.dto.SolicitudSeguimientoResponse;
 import cl.duoc.sistema_aduanero.model.AdjuntoViajeMenores;
 import cl.duoc.sistema_aduanero.model.SolicitudViajeMenores;
 import cl.duoc.sistema_aduanero.model.EstadoSolicitud;
@@ -163,6 +164,16 @@ public class SolicitudAduanaController {
     return ResponseEntity.ok(respuesta);
   }
 
+  @GetMapping("/menor")
+  public ResponseEntity<List<SolicitudSeguimientoResponse>> obtenerPorRutMenor(
+      @RequestParam String rut) {
+    List<SolicitudViajeMenores> solicitudes =
+        solicitudService.obtenerPorRutMenor(rut);
+    List<SolicitudSeguimientoResponse> respuesta =
+        solicitudes.stream().map(this::mapearSeguimiento).toList();
+    return ResponseEntity.ok(respuesta);
+  }
+
   @GetMapping("/{id}")
   public ResponseEntity<SolicitudViajeMenoresResponse> obtenerPorId(
       @PathVariable Long id) {
@@ -212,6 +223,15 @@ public class SolicitudAduanaController {
     List<AdjuntoViajeMenoresResponse> docs =
         s.getDocumentos().stream().map(this::mapearAdjunto).toList();
     r.setDocumentos(docs);
+    return r;
+  }
+
+  private SolicitudSeguimientoResponse mapearSeguimiento(SolicitudViajeMenores s) {
+    SolicitudSeguimientoResponse r = new SolicitudSeguimientoResponse();
+    r.setId(s.getId());
+    r.setFechaCreacion(s.getFechaCreacion());
+    r.setNumeroDocumentoMenor(s.getNumeroDocumentoMenor());
+    r.setEstado(s.getEstado());
     return r;
   }
 

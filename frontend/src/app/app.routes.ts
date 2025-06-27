@@ -5,6 +5,7 @@ import { Routes } from '@angular/router';
 // Importamos solo los componentes que realmente tenemos en este momento:
 import { FormularioSolicitudComponent } from './pages/solicitudes-aduana/formulario-solicitud/formulario-solicitud';
 import { InicioComponent } from './pages/inicio/inicio';
+import { SeguimientoComponent } from './pages/seguimiento/seguimiento';
 
 /**
  * Nota: Hemos comentado (o eliminado) las rutas de listado y detalle 
@@ -18,6 +19,9 @@ export const routes: Routes = [
 
   // Ruta para crear nueva solicitud
   { path: 'solicitud/nuevo/viaje-menor', component: FormularioSolicitudComponent },
+
+  // Seguimiento de solicitudes por RUT
+  { path: 'seguimiento', component: SeguimientoComponent },
 
   // 3) Editar una solicitud (usa el mismo componente de formulario)
   { path: 'solicitud-aduana/editar/:id', component: FormularioSolicitudComponent },
