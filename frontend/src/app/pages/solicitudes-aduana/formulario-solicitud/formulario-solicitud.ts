@@ -226,9 +226,9 @@ export class FormularioSolicitudComponent implements OnInit {
     this.service
       .crearConAdjunto(payload, tipos, archivos)
       .subscribe({
-        next: () => {
+        next: (solicitud) => {
           this.successMsg =
-            'Creación de solicitud exitosa. \n' +
+            `Creación de solicitud exitosa. ID: ${solicitud.id}\n` +
             'Se ha enviado un comprobante al correo \n' +
             f.emailPadre +
             '. Para hacer seguimiento debe ir a la página principal e ingresar el ID de la solicitud en la opción Seguimiento';
