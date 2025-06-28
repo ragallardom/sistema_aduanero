@@ -53,8 +53,9 @@ class SolicitudAduanaControllerTest {
                      .file(file1)
                      .file(file2)
                      .file(file3)
-        .param("estado", "NUEVA"))
-        .andExpect(status().isOk());
+                     .param("estado", "NUEVA"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(3));
   }
 
   @Test
@@ -71,7 +72,8 @@ class SolicitudAduanaControllerTest {
 
     mockMvc
         .perform(multipart("/api/solicitudes"))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(4));
 
     ArgumentCaptor<SolicitudViajeMenores> captor =
         ArgumentCaptor.forClass(SolicitudViajeMenores.class);
@@ -92,7 +94,8 @@ class SolicitudAduanaControllerTest {
         .perform(multipart("/api/solicitudes")
                      .param("tipoSolicitudMenor", "Entrada")
                      .param("paisDestino", "Peru"))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(5));
 
     ArgumentCaptor<SolicitudViajeMenores> captor =
         ArgumentCaptor.forClass(SolicitudViajeMenores.class);
@@ -113,7 +116,8 @@ class SolicitudAduanaControllerTest {
         .perform(multipart("/api/solicitudes")
                      .param("tipoSolicitudMenor", "Salida")
                      .param("paisOrigen", "Argentina"))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(6));
 
     ArgumentCaptor<SolicitudViajeMenores> captor =
         ArgumentCaptor.forClass(SolicitudViajeMenores.class);

@@ -38,7 +38,7 @@ public class SolicitudAduanaController {
   }
 
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<Void> crearSolicitud(
+  public ResponseEntity<SolicitudViajeMenoresResponse> crearSolicitud(
       @ModelAttribute SolicitudViajeMenoresRequest request,
       @RequestPart(value = "archivos", required = false) List<MultipartFile> archivos,
       @RequestParam(value = "tiposDocumento", required = false) List<String> tiposDoc) {
@@ -89,7 +89,7 @@ public class SolicitudAduanaController {
         adjuntoService.guardarAdjuntos(creada, tiposRecibidos, archivosRecibidos);
       }
 
-      return ResponseEntity.ok().build();
+      return ResponseEntity.ok(mapearSolicitud(creada));
 
     } catch (Exception e) {
       return ResponseEntity.internalServerError().build();
